@@ -14,9 +14,17 @@ function Battle(players) {
             return { isFinished : true, winnerId : players[0]};
         }
 
-        return {isFinished:false, firstPlayerId:players[0], secondPlayerId:players[1]};        
+        return {
+            id:1,
+            isFinished:false, 
+            firstPlayerId:players[0], 
+            secondPlayerId:players[1]};        
 
     };
+
+    this.winnerIs = function(battleId, winnerPlayerId){
+
+    }
 
     this.getRankings = function(){
 
