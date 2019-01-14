@@ -19,7 +19,7 @@ describe('battle', () => {
         });
         
     });
-    describe('Others Rounds', () => {
+    describe('Others Rounds', () => {        
         it('Après chaque ronde, on regroupe les participants ayant le même nombre de points et on recommence le processus décrit ci-dessus en veillant à ne jamais faire se rencontrer deux fois les mêmes adversaires', (done) => {
 
         });
@@ -33,6 +33,9 @@ describe('battle', () => {
 
         });
         it('Après le premier tour, les joueurs affrontent des adversaires qui comptent le même nombre de points (ou à peu près). ', (done) => {
+
+        });
+        it('On ne garde que les vainqueurs', (done) => {
 
         });
     });
