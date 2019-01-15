@@ -9,7 +9,7 @@ function Tournament(allPlayers) {
     }
     
     var battleId = 1;
-    
+
     // images.map(x => x.id)
     this.getNextRound = function(players){
         var battles = [];
@@ -22,18 +22,19 @@ function Tournament(allPlayers) {
             battles.push(new Battle(battleId, players[0], players[1]));
             battleId ++;
         }
+        else if (players.length == 4)
+        {
+            battles.push(new Battle(battleId, players[0], players[0 + 2]));
+            battleId ++;
+            battles.push(new Battle(battleId, players[1], players[1 + 2]));
+            battleId ++;                
+        }
         else
         {
-            var totalPlayers = 0;
-            if (players % 2){
-                totalPlayers = players.length / 2;
-            }
-            else{
-                totalPlayers = (players.length - 1) / 2;
-            }
-            for(var index = 0; index < totalPlayers; index++)
+            var subGroupCount = players % 2 ? (players.length / 2) : ((players.length - 1) / 2);
+            for(var index = 0; index < subGroupCount; index++)
             {
-                battles.push(new Battle(battleId, players[index], players[index + totalPlayers]));
+                battles.push(new Battle(battleId, players[index], players[index + subGroupCount]));
                 battleId ++;
             }            
         }
