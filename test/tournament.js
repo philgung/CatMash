@@ -110,23 +110,33 @@ describe('tournament', () => {
         });
         
     });
-    describe('Les Autres rondes', () => {        
+    describe('Les Autres rondes', () => {    
+        it('On ne peut lancer une nouvelle ronde, si la précédente ne sest pas terminé.',() =>{
+          var players = ['firstPlayerId', 'secondPlayerId', 'thirdPlayerId'];
+            var tournament = new Tournament(players);
+            tournament.init();
+            var currentRound = tournament.getNextRound();
+            expect(currentRound.isFinished).to.be.false;
+            expect(currentRound.winnerId).to.be.undefined;
+            expect(currentRound.battles.length).to.be.equal(1);
+            var nextRound = tournament.getNextRound();
+            expect(currentRound).to.be.eql(nextRound);
+
+        });    
         it('Après chaque ronde, on regroupe les vainqueurs et on recommence le processus décrit ci-dessus en veillant à ne jamais faire se rencontrer deux fois les mêmes adversaires', () => {
 
-          var players = ['firstPlayerId', 'secondPlayerId', 'thirdPlayerId','fourthPlayerId', 'fifthPlayerId', 
-            'sixthPlayerId', 'seventhPlayerId', 'heighthPlayerId', 'ninthPlayerId','tenthPlayerId', 'eleventhPlayerId'];
+          var players = ['firstPlayerId', 'secondPlayerId', 'thirdPlayerId','fourthPlayerId', 'fifthPlayerId'];
             var tournament = new Tournament(players);
             tournament.init();
             var nextRound = tournament.getNextRound();
+
 
             var nextRound = tournament.getNextRound();
         });        
         it('Les joueurs qui gagnent reçoivent un point et les perdants ne reçoivent aucun point', () => {
 
         });
-        it('On ne peut lancer une nouvelle ronde, si la précédente ne sest pas terminé.',() =>{
-
-        });
+       
     });
   
   });

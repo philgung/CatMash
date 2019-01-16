@@ -9,11 +9,10 @@ function Tournament(allPlayers) {
     }
 
     var players = [];
+    var battles = [];
     var rankings = new Object();
     this.init = function(){
         players = allPlayers;
-
-        // initialise dictionnaire idPlayer,points
         allPlayers.forEach(player => {
             rankings[player] = 0;
         });
@@ -23,7 +22,6 @@ function Tournament(allPlayers) {
 
     // images.map(x => x.id)
     this.getNextRound = function(){
-        var battles = [];
         if (players.length == 1)
         {
             return { isFinished : true, winnerId : players[0], battles:battles};
@@ -49,6 +47,19 @@ function Tournament(allPlayers) {
 
     this.winnerIs = function(battleId, winnerPlayerId){
         // players = uniquement les vainqueurs, supprimer les perdants
+        var currentBattle = battles.find((battle) => {
+            return battle.id == battleId;
+        });
+        var loserPlayerId;
+        if (currentBattle.firstPlayerId == winnerPlayerId){
+            loserPlayerId = currentBattle.secondPlayerId;
+
+        }
+        else{
+            loserPlayerId = currentBattle.firstPlayerId;
+
+        }
+        delete players[loserPlayerId];
     }
 
     this.getRanking= function(playerId){
