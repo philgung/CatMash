@@ -5,7 +5,8 @@ function Tournament(allPlayers) {
     function Battle(id, firstPlayerId, secondPlayerId){
         this.id = id,
         this.firstPlayerId = firstPlayerId,
-        this.secondPlayerId = secondPlayerId
+        this.secondPlayerId = secondPlayerId,
+        this.isFinished = false;
     }
 
     var players = [];
@@ -24,7 +25,7 @@ function Tournament(allPlayers) {
     this.getNextRound = function(){
         if (players.length == 1)
         {
-            return { isFinished : true, winnerId : players[0], battles:battles};
+            return { isFinished : true, winnerId : players[0], battles:undefined};
         }
         else
         {
@@ -53,13 +54,14 @@ function Tournament(allPlayers) {
         var loserPlayerId;
         if (currentBattle.firstPlayerId == winnerPlayerId){
             loserPlayerId = currentBattle.secondPlayerId;
-
         }
         else{
             loserPlayerId = currentBattle.firstPlayerId;
-
         }
-        delete players[loserPlayerId];
+        players.splice(players.indexOf(loserPlayerId), 1);
+
+        // battle is finished
+        currentBattle.isFinished = true;
     }
 
     this.getRanking= function(playerId){
@@ -69,6 +71,10 @@ function Tournament(allPlayers) {
     this.getRankings = function(){
 
     };
+
+    this.getPlayers = function(){
+        return players;
+    }
 }
 
 
