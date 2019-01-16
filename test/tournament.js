@@ -132,29 +132,50 @@ describe('tournament', () => {
             tournament.winnerIs(nextRound.battles[0].id, 'firstPlayerId');
             expect(tournament.getPlayers().length).to.be.equal(4);
             expect(nextRound.battles[nextRound.battles[0].id - 1].isFinished).to.be.true;
-            // points
             tournament.winnerIs(nextRound.battles[1].id, 'secondPlayerId');
             expect(tournament.getPlayers().length).to.be.equal(3);
             expect(nextRound.battles[nextRound.battles[1].id - 1].isFinished).to.be.true;
-            // points
             var secondRound = tournament.getNextRound();
             expect(players).to.be.eql(['firstPlayerId', 'secondPlayerId', 'fifthPlayerId']);
             tournament.winnerIs(secondRound.battles[0].id, 'firstPlayerId');
             expect(tournament.getPlayers().length).to.be.equal(2);
             expect(secondRound.battles[secondRound.battles[0].id - 1].isFinished).to.be.true;
-            // points
             var thirdRound = tournament.getNextRound();
             expect(players).to.be.eql(['firstPlayerId', 'secondPlayerId']);
             tournament.winnerIs(thirdRound.battles[0].id, 'secondPlayerId');
             expect(tournament.getPlayers().length).to.be.equal(1);
+            expect(players).to.be.eql(['secondPlayerId']);
             expect(thirdRound.battles[thirdRound.battles[0].id - 1].isFinished).to.be.true;
-            // points
             var finalRound = tournament.getNextRound();
             expect(finalRound.isFinished).to.be.true;
             expect(finalRound.winnerId).to.be.equal('secondPlayerId');
             expect(finalRound.battles).to.be.undefined;
         });        
         it('Les joueurs qui gagnent reçoivent un point et les perdants ne reçoivent aucun point', () => {
+          var players = ['firstPlayerId', 'secondPlayerId', 'thirdPlayerId','fourthPlayerId', 'fifthPlayerId'];
+          var tournament = new Tournament(players);
+          tournament.init();
+          expect(tournament.getRanking('firstPlayerId')).to.be.equal(0);
+          expect(tournament.getRanking('secondPlayerId')).to.be.equal(0);
+          expect(tournament.getRanking('thirdPlayerId')).to.be.equal(0);
+          expect(tournament.getRanking('fourthPlayerId')).to.be.equal(0);
+          expect(tournament.getRanking('fifthPlayerId')).to.be.equal(0);
+          var nextRound = tournament.getNextRound();
+          tournament.winnerIs(nextRound.battles[0].id, 'firstPlayerId');
+          expect(tournament.getRanking('firstPlayerId')).to.be.equal(1);
+          expect(tournament.getRanking('thirdPlayerId')).to.be.equal(0);
+          tournament.winnerIs(nextRound.battles[1].id, 'secondPlayerId');
+          expect(tournament.getRanking('secondPlayerId')).to.be.equal(1);
+          expect(tournament.getRanking('fourthPlayerId')).to.be.equal(0);
+          var secondRound = tournament.getNextRound();
+          tournament.winnerIs(secondRound.battles[0].id, 'firstPlayerId');
+          expect(tournament.getRanking('firstPlayerId')).to.be.equal(2);
+          expect(tournament.getRanking('fifthPlayerId')).to.be.equal(2);
+          var thirdRound = tournament.getNextRound();
+          tournament.winnerIs(thirdRound.battles[0].id, 'secondPlayerId');
+          expect(tournament.getRanking('firstPlayerId')).to.be.equal(2);
+          expect(tournament.getRanking('secondPlayerId')).to.be.equal(2);
+          var finalRound = tournament.getNextRound();
 
         });
        

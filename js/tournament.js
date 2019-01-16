@@ -60,7 +60,7 @@ function Tournament(allPlayers) {
         }
         players.splice(players.indexOf(loserPlayerId), 1);
 
-        // battle is finished
+        rankings[winnerPlayerId] += 1;
         currentBattle.isFinished = true;
     }
 
