@@ -9,17 +9,13 @@ function Tournament(allPlayers) {
     }
 
     var players = [];
-    var rankings = {};
+    var rankings = new Object();
     this.init = function(){
         players = allPlayers;
 
-        // initialise dictionnaire idPlayer,points,rank
+        // initialise dictionnaire idPlayer,points
         allPlayers.forEach(player => {
-            rankings.push({
-                playerId:player,
-                points:0,
-                rank:0
-            });
+            rankings[player] = 0;
         });
     }
     
@@ -34,6 +30,9 @@ function Tournament(allPlayers) {
         }
         else
         {
+            if (players.length % 2 == 1){
+                rankings[players[players.length - 1]] += 1;
+            }
             var subGroupCount = Math.floor(isNaN(players % 2) ? (players.length / 2) : (players.length - 1) / 2);
             for(var index = 0; index < subGroupCount; index++)
             {
