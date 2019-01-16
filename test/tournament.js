@@ -15,7 +15,8 @@ describe('battle', () => {
           it('Pour 1 seul participant, il est déclaré vainqueur.', () => {
             var players = ['firstPlayerId'];  
             var tournament = new Tournament(players);
-            var nextRound = tournament.getNextRound(players);
+            tournament.init();
+            var nextRound = tournament.getNextRound();
             expect(nextRound.isFinished).to.be.true;
             expect(nextRound.battles.length).to.be.equal(0);
             expect(nextRound.winnerId).to.be.equal('firstPlayerId');
@@ -23,7 +24,8 @@ describe('battle', () => {
           it('Pour 2 participants, les deux saffrontent.', () => {
             var players = ['firstPlayerId', 'secondPlayerId'];
             var tournament = new Tournament(players);
-            var nextRound = tournament.getNextRound(players);
+            tournament.init();
+            var nextRound = tournament.getNextRound();
             expect(nextRound.isFinished).to.be.false;
             expect(nextRound.battles.length).to.be.equal(1);
             expect(nextRound.winnerId).to.be.undefined;
@@ -34,7 +36,8 @@ describe('battle', () => {
           it('Pour 3 participants, les deux premiers saffrontent, le dernier naffronte personne, mais il gagne 1 point.', () => {
             var players = ['firstPlayerId', 'secondPlayerId', 'thirdPlayerId'];
             var tournament = new Tournament(players);
-            var nextRound = tournament.getNextRound(players);
+            tournament.init();
+            var nextRound = tournament.getNextRound();
             expect(nextRound.isFinished).to.be.false;
             expect(nextRound.battles.length).to.be.equal(1);
             expect(nextRound.winnerId).to.be.undefined;
@@ -42,11 +45,13 @@ describe('battle', () => {
             expect(nextRound.battles[0].secondPlayerId).to.be.eql('secondPlayerId');
             expect(nextRound.battles[0].id).to.be.equal(1);
             // third possède 1 point supplémentaire
+            expect(tournament.getRanking('thirdPlayerId').points).to.be.equal(1);
           });
           it('Pour 4 participants, les quatres premiers saffrontent.', () => {
             var players = ['firstPlayerId', 'secondPlayerId', 'thirdPlayerId', 'fourthPlayerId'];
             var tournament = new Tournament(players);
-            var nextRound = tournament.getNextRound(players);
+            tournament.init();
+            var nextRound = tournament.getNextRound();
             expect(nextRound.isFinished).to.be.false;
             expect(nextRound.battles.length).to.be.equal(2);
             expect(nextRound.winnerId).to.be.undefined;
@@ -61,7 +66,8 @@ describe('battle', () => {
             var players = ['firstPlayerId', 'secondPlayerId', 'thirdPlayerId','fourthPlayerId', 'fifthPlayerId', 
             'sixthPlayerId', 'seventhPlayerId', 'heighthPlayerId', 'ninthPlayerId','tenthPlayerId', 'eleventhPlayerId'];
             var tournament = new Tournament(players);
-            var nextRound = tournament.getNextRound(players);
+            tournament.init();
+            var nextRound = tournament.getNextRound();
             expect(nextRound.isFinished).to.be.false;
             expect(nextRound.battles.length).to.be.equal(5);
             expect(nextRound.winnerId).to.be.undefined;

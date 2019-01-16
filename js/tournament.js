@@ -7,11 +7,26 @@ function Tournament(allPlayers) {
         this.firstPlayerId = firstPlayerId,
         this.secondPlayerId = secondPlayerId
     }
+
+    var players = [];
+    var rankings = {};
+    this.init = function(){
+        players = allPlayers;
+
+        // initialise dictionnaire idPlayer,points,rank
+        allPlayers.forEach(player => {
+            rankings.push({
+                playerId:player,
+                points:0,
+                rank:0
+            });
+        });
+    }
     
     var battleId = 1;
 
     // images.map(x => x.id)
-    this.getNextRound = function(players){
+    this.getNextRound = function(){
         var battles = [];
         if (players.length == 1)
         {
@@ -34,7 +49,11 @@ function Tournament(allPlayers) {
     }
 
     this.winnerIs = function(battleId, winnerPlayerId){
+        // players = uniquement les vainqueurs, supprimer les perdants
+    }
 
+    this.getRanking= function(playerId){
+        return rankings[playerId];
     }
 
     this.getRankings = function(){
