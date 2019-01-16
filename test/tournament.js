@@ -160,6 +160,7 @@ describe('tournament', () => {
           expect(tournament.getRanking('thirdPlayerId')).to.be.equal(0);
           expect(tournament.getRanking('fourthPlayerId')).to.be.equal(0);
           expect(tournament.getRanking('fifthPlayerId')).to.be.equal(0);
+          
           var nextRound = tournament.getNextRound();
           tournament.winnerIs(nextRound.battles[0].id, 'firstPlayerId');
           expect(tournament.getRanking('firstPlayerId')).to.be.equal(1);
@@ -176,6 +177,12 @@ describe('tournament', () => {
           expect(tournament.getRanking('firstPlayerId')).to.be.equal(2);
           expect(tournament.getRanking('secondPlayerId')).to.be.equal(2);
           var finalRound = tournament.getNextRound();
+
+          expect(tournament.getRanking('firstPlayerId')).to.be.equal(2);
+          expect(tournament.getRanking('secondPlayerId')).to.be.equal(2);
+          expect(tournament.getRanking('thirdPlayerId')).to.be.equal(0);
+          expect(tournament.getRanking('fourthPlayerId')).to.be.equal(0);
+          expect(tournament.getRanking('fifthPlayerId')).to.be.equal(2);
 
         });
        
