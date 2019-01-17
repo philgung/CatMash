@@ -23,6 +23,7 @@ function Tournament(allPlayers) {
 
     // images.map(x => x.id)
     this.getNextRound = function(){
+        battles = [];
         if (players.length == 1)
         {
             return { isFinished : true, winnerId : players[0], battles:undefined};

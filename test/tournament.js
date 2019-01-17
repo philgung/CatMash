@@ -120,10 +120,13 @@ describe('tournament', () => {
             expect(currentRound.winnerId).to.be.undefined;
             expect(currentRound.battles.length).to.be.equal(1);
             var nextRound = tournament.getNextRound();
-            expect(currentRound).to.be.eql(nextRound);
-
+            expect(currentRound.firstPlayerId).to.be.eql(nextRound.firstPlayerId);
+            expect(currentRound.secondPlayerId).to.be.eql(nextRound.secondPlayerId);
+            expect(currentRound.isFinished).to.be.eql(nextRound.isFinished);
         });    
-        it('Après chaque ronde, on regroupe les vainqueurs et on recommence le processus décrit ci-dessus en veillant à ne jamais faire se rencontrer deux fois les mêmes adversaires', () => {
+        it('Après chaque ronde, on regroupe les vainqueurs et on recommence le processus décrit ci-dessus', () => {
+          // TODO : changer l'algo, le dernier joueur dans les cas impair ne joue jamais !!
+
 
           var players = ['firstPlayerId', 'secondPlayerId', 'thirdPlayerId','fourthPlayerId', 'fifthPlayerId'];
             var tournament = new Tournament(players);
@@ -139,17 +142,42 @@ describe('tournament', () => {
             expect(players).to.be.eql(['firstPlayerId', 'secondPlayerId', 'fifthPlayerId']);
             tournament.winnerIs(secondRound.battles[0].id, 'firstPlayerId');
             expect(tournament.getPlayers().length).to.be.equal(2);
-            expect(secondRound.battles[secondRound.battles[0].id - 1].isFinished).to.be.true;
+            expect(secondRound.battles[0].isFinished).to.be.true;
             var thirdRound = tournament.getNextRound();
-            expect(players).to.be.eql(['firstPlayerId', 'secondPlayerId']);
-            tournament.winnerIs(thirdRound.battles[0].id, 'secondPlayerId');
+            expect(players).to.be.eql(['firstPlayerId', 'fifthPlayerId']);
+            tournament.winnerIs(thirdRound.battles[0].id, 'fifthPlayerId');
             expect(tournament.getPlayers().length).to.be.equal(1);
-            expect(players).to.be.eql(['secondPlayerId']);
-            expect(thirdRound.battles[thirdRound.battles[0].id - 1].isFinished).to.be.true;
+            expect(players).to.be.eql(['fifthPlayerId']);
+            expect(thirdRound.battles[0].isFinished).to.be.true;
             var finalRound = tournament.getNextRound();
             expect(finalRound.isFinished).to.be.true;
-            expect(finalRound.winnerId).to.be.equal('secondPlayerId');
+            expect(finalRound.winnerId).to.be.equal('fifthPlayerId');
             expect(finalRound.battles).to.be.undefined;
+        });
+        it('Aucun adversaire ne peut se rencontrer deux fois', () => {
+
+          var players = ['firstPlayerId', 'secondPlayerId', 'thirdPlayerId','fourthPlayerId', 'fifthPlayerId'];
+            var tournament = new Tournament(players);
+            tournament.init();
+            var firstRound = tournament.getNextRound();
+            expect(firstRound.battles[0].firstPlayerId).to.be.equal('firstPlayerId');
+            expect(firstRound.battles[0].secondPlayerId).to.be.equal('thirdPlayerId');            
+            expect(firstRound.battles[1].firstPlayerId).to.be.equal('secondPlayerId');
+            expect(firstRound.battles[1].secondPlayerId).to.be.equal('fourthPlayerId');            
+            tournament.winnerIs(firstRound.battles[0].id, 'firstPlayerId');            
+            tournament.winnerIs(firstRound.battles[1].id, 'secondPlayerId');            
+            var secondRound = tournament.getNextRound();
+            expect(firstRound.battles[0].firstPlayerId).to.be.equal('firstPlayerId');
+            expect(firstRound.battles[0].secondPlayerId).to.be.equal('fifthPlayerId');             
+            tournament.winnerIs(secondRound.battles[0].id, 'firstPlayerId');
+            
+            var thirdRound = tournament.getNextRound();
+            expect(firstRound.battles[0].firstPlayerId).to.be.equal('firstPlayerId');
+            expect(firstRound.battles[0].secondPlayerId).to.be.equal('secondPlayerId');
+            tournament.winnerIs(thirdRound.battles[0].id, 'secondPlayerId');
+            
+            var finalRound = tournament.getNextRound();
+            
         });        
         it('Les joueurs qui gagnent reçoivent un point et les perdants ne reçoivent aucun point', () => {
           var players = ['firstPlayerId', 'secondPlayerId', 'thirdPlayerId','fourthPlayerId', 'fifthPlayerId'];
