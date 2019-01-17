@@ -30,7 +30,8 @@ function Tournament(allPlayers) {
         }
         else
         {
-            if (players.length % 2 == 1){
+            const isOdd = players.length % 2 == 1;
+            if (isOdd){
                 rankings[players[players.length - 1]] += 1;
             }
             var subGroupCount = Math.floor(isNaN(players % 2) ? (players.length / 2) : (players.length - 1) / 2);
@@ -38,7 +39,11 @@ function Tournament(allPlayers) {
             {
                 battles.push(new Battle(battleId, players[index], players[index + subGroupCount]));
                 battleId ++;
-            }            
+            }   
+            if (isOdd){
+                var lastPlayer = players.pop();
+                players.unshift(lastPlayer);
+            }         
         }
 
         return {
