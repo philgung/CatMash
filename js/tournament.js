@@ -11,7 +11,7 @@ function Tournament(allPlayers) {
 
     var players = [];
     var battles = [];
-    var rankings = new Object();
+    var rankings = {};
     this.init = function(){
         players = allPlayers;
         allPlayers.forEach(player => {
@@ -75,7 +75,16 @@ function Tournament(allPlayers) {
     }
 
     this.getRankings = function(){
+        var keys = [];
+        for(var key in rankings){
+            keys.push(key);
+        }
 
+        var values = [];
+        for(var i = 0; i <keys.length; i++){
+            values.push({'playerId': keys[i], 'points' : rankings[keys[i]]});
+        }
+        return values.sort((a,b) => b.points - a.points);
     };
 
     this.getPlayers = function(){

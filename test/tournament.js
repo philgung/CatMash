@@ -224,6 +224,39 @@ describe('tournament', () => {
           playerPointIs(tournament, 'fourthPlayerId', 0);
           playerPointIs(tournament, 'fifthPlayerId', 1);
         });
+
+        it('Renvoie le classement.', () => {
+          var players = ['firstPlayerId', 'secondPlayerId', 'thirdPlayerId','fourthPlayerId', 'fifthPlayerId'];
+          var tournament = new Tournament(players);
+          tournament.init();
+
+          expect(tournament.getRankings()).to.be.eql(
+            [ 
+              {'playerId':'firstPlayerId', 'points' : 0},
+              {'playerId':'secondPlayerId', 'points' : 0},
+              {'playerId':'thirdPlayerId', 'points' : 0},
+              {'playerId':'fourthPlayerId', 'points' : 0},
+              {'playerId':'fifthPlayerId', 'points' : 0}             
+            ]);
+
+          var nextRound = tournament.getNextRound();
+          tournament.winnerIs(nextRound.battles[0].id, 'firstPlayerId');
+          tournament.winnerIs(nextRound.battles[1].id, 'secondPlayerId');
+          var secondRound = tournament.getNextRound();
+          tournament.winnerIs(secondRound.battles[0].id, 'firstPlayerId');
+          var thirdRound = tournament.getNextRound();
+          tournament.winnerIs(thirdRound.battles[0].id, 'secondPlayerId');
+          var finalRound = tournament.getNextRound();
+
+          expect(tournament.getRankings()).to.be.eql(
+            [ 
+              {'playerId':'secondPlayerId', 'points' : 3},
+              {'playerId':'firstPlayerId', 'points' : 2},
+              {'playerId':'fifthPlayerId', 'points' : 1},
+              {'playerId':'thirdPlayerId', 'points' : 0},
+              {'playerId':'fourthPlayerId', 'points' : 0}             
+            ]);
+        });
        
     });
   
