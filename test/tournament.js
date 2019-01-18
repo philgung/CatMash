@@ -21,8 +21,14 @@ function battleOpponentWas(battle, firstPlayerId, secondPlayerId){
   expect(battle.firstPlayerId).to.be.eql(firstPlayerId);
   expect(battle.secondPlayerId).to.be.eql(secondPlayerId);
 }
+function battleIsFinished(battle){
+  expect(battle.isFinished).to.be.true;
+}
 function playersAre(players, expectedPlayers){
   expect(players).to.be.eql(expectedPlayers);
+}
+function playersCountIs(tournament, expectedCount){
+  expect(tournament.getPlayers().length).to.be.equal(expectedCount);
 }
 
 describe('tournament', () => {
@@ -139,20 +145,20 @@ describe('tournament', () => {
             var nextRound = tournament.getNextRound();
             playersAre(players, ['fifthPlayerId','firstPlayerId', 'secondPlayerId', 'thirdPlayerId','fourthPlayerId']);
             tournament.winnerIs(nextRound.battles[0].id, 'firstPlayerId');
-            expect(tournament.getPlayers().length).to.be.equal(4);
-            expect(nextRound.battles[nextRound.battles[0].id - 1].isFinished).to.be.true;
+            playersCountIs(tournament, 4);
+            battleIsFinished(nextRound.battles[nextRound.battles[0].id - 1]);
             tournament.winnerIs(nextRound.battles[1].id, 'secondPlayerId');
-            expect(tournament.getPlayers().length).to.be.equal(3);
-            expect(nextRound.battles[nextRound.battles[1].id - 1].isFinished).to.be.true;
+            playersCountIs(tournament, 3);
+            battleIsFinished(nextRound.battles[nextRound.battles[1].id - 1]);
             var secondRound = tournament.getNextRound();
             playersAre(players, ['secondPlayerId', 'fifthPlayerId', 'firstPlayerId']);
             tournament.winnerIs(secondRound.battles[0].id, 'secondPlayerId');
-            expect(tournament.getPlayers().length).to.be.equal(2);
-            expect(secondRound.battles[0].isFinished).to.be.true;
+            playersCountIs(tournament, 2);
+            battleIsFinished(secondRound.battles[0]);
             var thirdRound = tournament.getNextRound();
             playersAre(players, ['secondPlayerId', 'firstPlayerId']);
             tournament.winnerIs(thirdRound.battles[0].id, 'secondPlayerId');
-            expect(tournament.getPlayers().length).to.be.equal(1);
+            playersCountIs(tournament, 1);
             playersAre(players, ['secondPlayerId']);
             expect(thirdRound.battles[0].isFinished).to.be.true;
             var finalRound = tournament.getNextRound();
@@ -167,16 +173,16 @@ describe('tournament', () => {
           var nextRound = tournament.getNextRound();
           playersAre(players, ['firstPlayerId', 'secondPlayerId', 'thirdPlayerId','fourthPlayerId']);
           tournament.winnerIs(nextRound.battles[0].id, 'firstPlayerId');
-          expect(tournament.getPlayers().length).to.be.equal(3);
-          expect(nextRound.battles[nextRound.battles[0].id - 1].isFinished).to.be.true;
+          playersCountIs(tournament, 3);
+          battleIsFinished(nextRound.battles[nextRound.battles[0].id - 1]);
           tournament.winnerIs(nextRound.battles[1].id, 'secondPlayerId');
-          expect(tournament.getPlayers().length).to.be.equal(2);
-          expect(nextRound.battles[nextRound.battles[1].id - 1].isFinished).to.be.true;
+          playersCountIs(tournament, 2);
+          battleIsFinished(nextRound.battles[nextRound.battles[1].id - 1])
           var secondRound = tournament.getNextRound();
           playersAre(players, ['firstPlayerId', 'secondPlayerId']);
           tournament.winnerIs(secondRound.battles[0].id, 'secondPlayerId');
-          expect(tournament.getPlayers().length).to.be.equal(1);
-          expect(secondRound.battles[0].isFinished).to.be.true;
+          playersCountIs(tournament, 1);
+          battleIsFinished(secondRound.battles[0]);
           var finalRound = tournament.getNextRound();
           expect(finalRound.isFinished).to.be.true;
           theWinnerIs(finalRound, 'secondPlayerId');
