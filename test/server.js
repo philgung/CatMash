@@ -23,11 +23,12 @@ describe('server', () => {
             });
     });
 
-    it('Retourne les prochaines battle', (done) => {
+    it('Retourne les prochaines batailles', (done) => {
         chai.request(server)
             .get('/getnextbattle')
             .end((err, res) => {
                 expect(res.status).to.be.equal(200);
+                expect(res.body.currentRound.battles.length).to.be.equal(50);
                 done();
             });
     });

@@ -21,11 +21,14 @@
 var express = require('express');
 var app = express();
 var port = 9090;
-
+var fs = require('fs');
 var Tournament = require('./tournament');
 var tournament;
+
+var catsJson = JSON.parse(fs.readFileSync('data/cats.json'));
+
 app.get('/', (req, res) =>{
-    tournament = new Tournament(['liliId', 'lalaId', 'thirdPlayerId']);
+    tournament = new Tournament(catsJson.images.map(x => x.id));
     tournament.init();
     var nextRound = tournament.getNextRound();
     res.render('../views/tournament.ejs', {currentRound:nextRound});
@@ -33,7 +36,7 @@ app.get('/', (req, res) =>{
 
 app.get('/getnextbattle', (req, res) => {
     var nextRound = tournament.getNextRound();
-    res.json({currentRound:1});
+    res.json({currentRound:nextRound});
 });
 
 app.get('/getrankings', (req, res) => {
