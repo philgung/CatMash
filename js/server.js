@@ -22,6 +22,8 @@ var express = require('express');
 var app = express();
 var port = 9090;
 var fs = require('fs');
+
+app.use(express.static('assets'));
 var Tournament = require('./tournament');
 var tournament;
 
