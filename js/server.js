@@ -27,9 +27,18 @@ app.get('/', (req, res) =>{
     res.render('../views/tournament.ejs');
 })
 
+app.get('/getrankings', (req, res) => {
+    res.render('../views/rankings.ejs');
+});
+
 var tournament = require('./tournament');
+
+
 
 
 // Start server
 app.listen(port);
 console.log('start Cat Mash server on port ' + port);
+
+
+module.exports = app;
