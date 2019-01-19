@@ -1,8 +1,28 @@
 <html>
-<body>
-<h1>Cat Mash</h1>
+    <head>
+        <style>
+        .column {
+        float: left;
+        width: 50%;
+        }
 
-<table>
+        /* Clear floats after the columns */
+        .row:after {
+        content: "";
+        display: table;
+        clear: both;
+        }
+
+        .hide{
+            display: none;
+        }
+        .show{
+            display: block;
+        }
+        </style>
+    </head>
+<body>
+<h1><img src="../assets/images.png"/>Cat Mash</h1>
 
     
 <% for(var index = 0; index < currentRound.battles.length; index ++){
@@ -11,19 +31,20 @@
 
         var secondPlayerId = currentRound.battles[index].secondPlayerId;
         var secondPlayerUrlImg = catsJson.images.find(x => x.id == secondPlayerId).url;
+        
 %>
-<tr>
-    <td>
+<div class="row<%= index != 0 ? ' hide' : ' show'%> ">
+    <div class="column">
         <img src="<%= firstPlayerUrlImg%>" style="width:500"/>
-    </td>
-    <td>
+    </div>
+    <div class="column">        
         <img src="<%= secondPlayerUrlImg%>" style="width:500"/>
-    </td>
-</tr>
+    </div>    
+    
+</div>
     
 <%}%>
 
-</table>
 
 </body>
 
