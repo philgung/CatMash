@@ -18,3 +18,18 @@
 // Il n’est pas grave que le projet ne soit pas entièrement terminé.
 // https://latelier.co/data/cats.json
 
+var express = require('express');
+var app = express();
+var port = 9090;
+
+
+app.get('/', (req, res) =>{
+    res.render('../views/tournament.ejs');
+})
+
+var tournament = require('./tournament');
+
+
+// Start server
+app.listen(port);
+console.log('start Cat Mash server on port ' + port);

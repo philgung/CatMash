@@ -2,8 +2,10 @@
   "name": "CatMash",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "dependencies": {},
+  "main": "js/server.js",
+  "dependencies": {
+    "ejs": "^2.6.1"
+  },
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",

@@ -53,7 +53,6 @@ function Tournament(allPlayers) {
     }
 
     this.winnerIs = function(battleId, winnerPlayerId){
-        // players = uniquement les vainqueurs, supprimer les perdants
         var currentBattle = battles.find((battle) => {
             return battle.id == battleId;
         });
@@ -81,8 +80,8 @@ function Tournament(allPlayers) {
         }
 
         var values = [];
-        for(var i = 0; i <keys.length; i++){
-            values.push({'playerId': keys[i], 'points' : rankings[keys[i]]});
+        for(var index = 0; index <keys.length; index++){
+            values.push({'playerId': keys[index], 'points' : rankings[keys[index]]});
         }
         return values.sort((a,b) => b.points - a.points);
     };
