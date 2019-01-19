@@ -31,7 +31,8 @@ app.get('/', (req, res) =>{
     tournament = new Tournament(catsJson.images.map(x => x.id));
     tournament.init();
     var nextRound = tournament.getNextRound();
-    res.render('../views/tournament.ejs', {currentRound:nextRound});
+    res.render('../views/tournament.ejs', 
+    {currentRound:nextRound, catsJson : catsJson});
 });
 
 app.get('/getnextbattle', (req, res) => {
