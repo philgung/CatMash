@@ -23,11 +23,17 @@ var app = express();
 var port = 9090;
 
 var Tournament = require('./tournament');
+var tournament;
 app.get('/', (req, res) =>{
-    var tournament = new Tournament(['liliId', 'lalaId', 'thirdPlayerId']);
+    tournament = new Tournament(['liliId', 'lalaId', 'thirdPlayerId']);
     tournament.init();
     var nextRound = tournament.getNextRound();
     res.render('../views/tournament.ejs', {currentRound:nextRound});
+});
+
+app.get('/getnextbattle', (req, res) => {
+    var nextRound = tournament.getNextRound();
+    res.json({currentRound:1});
 });
 
 app.get('/getrankings', (req, res) => {
