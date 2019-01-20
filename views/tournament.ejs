@@ -33,7 +33,8 @@
         var secondPlayerUrlImg = catsJson.images.find(x => x.id == secondPlayerId).url;
         
 %>
-<div class="row<%= index != 0 ? ' hide' : ' show'%> ">
+<div id="div_battles_<%=currentRound.battles[index].id%>" 
+    class="row<%= index != 0 ? ' hide' : ' show'%> ">
     <div class="column">
         <img src="<%= firstPlayerUrlImg%>" style="width:500"/>
     </div>
@@ -46,6 +47,7 @@
 <%}%>
 
 
+<script src="tournament.js"/>
 </body>
 
 </html>
