@@ -5,7 +5,7 @@ chai.use(chaiHttp);
 var expect = chai.expect;
 
 describe('server', () => {
-    it('Affiche la page daccueil', (done) => {
+    it('/GET Affiche la page daccueil', (done) => {
         chai.request(server)
             .get('/')
             .end((err, res) => {
@@ -14,7 +14,7 @@ describe('server', () => {
             });
     });
 
-    it('Affiche la page de classement', (done) => {
+    it('/GET Affiche la page de classement', (done) => {
         chai.request(server)
             .get('/getrankings')
             .end((err, res) => {
@@ -23,7 +23,7 @@ describe('server', () => {
             });
     });
 
-    it('Retourne les prochaines batailles', (done) => {
+    it('/GET Retourne les prochaines batailles', (done) => {
         chai.request(server)
             .get('/getnextbattle')
             .end((err, res) => {
@@ -31,5 +31,23 @@ describe('server', () => {
                 expect(res.body.currentRound.battles.length).to.be.equal(50);
                 done();
             });
+    });
+
+    it('/POST Designe un vainqueur', (done) => {
+        chai.request(server)
+            .get('/')
+            .end(() => {
+                chai.request(server)
+                    .post('/thewinneris')
+                    .send({battleId:1, winnerId:'MTgwODA3MA'})
+                    .end((err, res) => {
+                        expect(res.status).to.be.equal(200);
+                        expect(res.body.currentRound.battles.length).to.be.equal(50);
+                        done();
+                    });
+                done();
+            });
+        
+        
     });
 });

@@ -1,5 +1,3 @@
-// createBattle, nextBattle, getRankings
-
 
 function Tournament(allPlayers) {
     function Battle(id, firstPlayerId, secondPlayerId){

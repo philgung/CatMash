@@ -26,14 +26,12 @@
 
     
 <% for(var index = 0; index < currentRound.battles.length; index ++){
-        var firstPlayerId = currentRound.battles[index].firstPlayerId;
-        var firstPlayerUrlImg = catsJson.images.find(x => x.id == firstPlayerId).url;
-
-        var secondPlayerId = currentRound.battles[index].secondPlayerId;
-        var secondPlayerUrlImg = catsJson.images.find(x => x.id == secondPlayerId).url;
+    var currentBattle =  currentRound.battles[index];   
+    var firstPlayerUrlImg = catsJson.images.find(x => x.id == currentBattle.firstPlayerId).url;
+    var secondPlayerUrlImg = catsJson.images.find(x => x.id == currentBattle.secondPlayerId).url;
         
 %>
-<div id="div_battles_<%=currentRound.battles[index].id%>" 
+<div id="div_battles_<%=currentBattle.id%>" 
     class="row<%= index != 0 ? ' hide' : ' show'%> ">
     <div class="column">
         <img src="<%= firstPlayerUrlImg%>" style="width:500"/>
