@@ -52,6 +52,7 @@ app.get('/getrankings', (req, res) => {
 
 app.post('/thewinneris', (req, res) => {
     tournament.winnerIs(req.body.battleId, req.body.winnerId);
+    res.sendStatus(200);
 });
 
 

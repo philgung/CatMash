@@ -34,18 +34,22 @@
 <div id="div_battles_<%=currentBattle.id%>" 
     class="row<%= index != 0 ? ' hide' : ' show'%> ">
     <div class="column">
-        <img src="<%= firstPlayerUrlImg%>" style="width:500"/>
+        <img src="<%= firstPlayerUrlImg%>" style="width:500"
+        onclick="winnerIs('<%=currentBattle.id%>','<%=currentBattle.firstPlayerId%>')"/>
     </div>
     <div class="column">        
-        <img src="<%= secondPlayerUrlImg%>" style="width:500"/>
+        <img src="<%= secondPlayerUrlImg%>" style="width:500"
+        onclick="winnerIs('<%=currentBattle.id%>','<%=currentBattle.secondPlayerId%>')"/>
     </div>    
     
 </div>
     
 <%}%>
-
-
-<script src="tournament.js"/>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script type="text/javascript" src="tournament_client.js"></script>
 </body>
 
 </html>

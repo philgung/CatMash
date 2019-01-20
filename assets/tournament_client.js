@@ -8,9 +8,10 @@ function winnerIs(battleId, winnerId){
     $.ajax({
         type:'POST',
         url:'http://localhost:9090/thewinneris',
-        data:new {battleId: battleId, winnerId:winnerId},
+        data:{battleId: battleId, winnerId:winnerId},
         success:() => {
-
+            $('#div_battles_' + battleId).hide();
+            $('#div_battles_' + (parseInt(battleId) + 1)).show();
         }
     });
 
