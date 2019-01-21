@@ -27,7 +27,8 @@ app.get('/getnextbattle', (req, res) => {
 });
 
 app.get('/getrankings', (req, res) => {
-    res.render('../views/rankings.ejs');
+    var test = tournament.getRankings()[0].points;
+    res.render('../views/rankings.ejs', {rankings:tournament.getRankings(), catsJson : catsJson});
 });
 
 app.post('/thewinneris', (req, res) => {

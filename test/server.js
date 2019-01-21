@@ -14,15 +14,6 @@ describe('server', () => {
             });
     });
 
-    it('/GET Affiche la page de classement', (done) => {
-        chai.request(server)
-            .get('/getrankings')
-            .end((err, res) => {
-                expect(res.status).to.be.equal(200);
-                done();
-            });
-    });
-
     it('/GET Retourne les prochaines batailles', (done) => {
         chai.request(server)
             .get('/getnextbattle')
@@ -47,5 +38,18 @@ describe('server', () => {
             });
         
         
+    });
+
+    it('/GET Affiche la page de classement', (done) => {
+        chai.request(server)
+            .get('/')
+            .end(() => {
+                chai.request(server)
+                    .get('/getrankings')
+                    .end((err, res) => {
+                        expect(res.status).to.be.equal(200);
+                    });
+                done();    
+                });
     });
 });

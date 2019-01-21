@@ -1,7 +1,28 @@
 <html>
+<head>
+    <link rel="stylesheet" type="text/css" href="tournament.css" />
+</head>
 <body>
-<h1>CatMash - Rankings</h1>
+<h1><img src="images.png" style="width:100px"/>Cat Mash - Rankings</h1>
+<table>
+    <thead>
+        <tr><td>Rank</td>
+        <td>Chat</td>
+    <td>Points</td></tr>
+    </thead>
+    <% 
+        for(var index = 1; index < rankings.length + 1; index ++){
+        var playerUrlImg = catsJson.images.find(x => x.id == rankings[index - 1].playerId).url;
+    %>
+        <tr>
+            <td><%=index%></td>
+            <td><img src="<%=playerUrlImg%>" style="width:100px"/></td>
+            <td><%=rankings[index - 1].points %></td>
+        </tr>
+    <%}%>
+</table>
 
+<script type="text/javascript" src="rankings_client.js"></script>
 </body>
 
 </html>
