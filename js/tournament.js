@@ -19,7 +19,6 @@ function Tournament(allPlayers) {
     
     var battleId = 1;
 
-    // images.map(x => x.id)
     this.getNextRound = function(){
         battles = [];
         if (players.length == 1)

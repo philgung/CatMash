@@ -1,0 +1,22 @@
+.column {
+    float: left;
+    width: 50%;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.hide{
+    display: none;
+}
+.show{
+    display: block;
+}
+
+.h1{
+    text-align: center;
+    
+}

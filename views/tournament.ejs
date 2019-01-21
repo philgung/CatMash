@@ -1,35 +1,16 @@
 <html>
     <head>
-        <style>
-        .column {
-        float: left;
-        width: 50%;
-        }
-
-        .row:after {
-        content: "";
-        display: table;
-        clear: both;
-        }
-
-        .hide{
-            display: none;
-        }
-        .show{
-            display: block;
-        }
-        </style>
+        <link rel="stylesheet" type="text/css" href="tournament.css" />
     </head>
 <body>
-<h1><img src="images.png"/>Cat Mash</h1>
-
-<div id="battles">
-        <%- include('battles.ejs', {battles : currentRound.battles, catsJson: catsJson}); %>
-</div>    
-<div id="div_battles_<%=currentRound.battles.length + 1%>" class="hide">
-<input type="button" value="Continuer" onclick="getNextBattle()"/>
+<h1><img src="images.png" style="width:100px"/>Cat Mash</h1>
+<div id="main_div">
+        <div id="battles">
+            <%- include('battles.ejs', {battles : currentRound.battles, catsJson: catsJson}); %>
+        </div>    
+        
 </div>
-<div id="winner_div"></div>
+
 <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
