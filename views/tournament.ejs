@@ -6,7 +6,6 @@
         width: 50%;
         }
 
-        /* Clear floats after the columns */
         .row:after {
         content: "";
         display: table;
@@ -24,27 +23,13 @@
 <body>
 <h1><img src="images.png"/>Cat Mash</h1>
 
-    
-<% for(var index = 0; index < currentRound.battles.length; index ++){
-    var currentBattle =  currentRound.battles[index];   
-    var firstPlayerUrlImg = catsJson.images.find(x => x.id == currentBattle.firstPlayerId).url;
-    var secondPlayerUrlImg = catsJson.images.find(x => x.id == currentBattle.secondPlayerId).url;
-        
-%>
-<div id="div_battles_<%=currentBattle.id%>" 
-    class="row<%= index != 0 ? ' hide' : ' show'%> ">
-    <div class="column">
-        <img src="<%= firstPlayerUrlImg%>" style="width:500"
-        onclick="winnerIs('<%=currentBattle.id%>','<%=currentBattle.firstPlayerId%>')"/>
-    </div>
-    <div class="column">        
-        <img src="<%= secondPlayerUrlImg%>" style="width:500"
-        onclick="winnerIs('<%=currentBattle.id%>','<%=currentBattle.secondPlayerId%>')"/>
-    </div>    
-    
+<div id="battles">
+        <%- include('battles.ejs', {battles : currentRound.battles, catsJson: catsJson}); %>
+</div>    
+<div id="div_battles_<%=currentRound.battles.length + 1%>" class="hide">
+<input type="button" value="Continuer" onclick="getNextBattle()"/>
 </div>
-    
-<%}%>
+<div id="winner_div"></div>
 <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="

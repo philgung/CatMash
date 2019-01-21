@@ -43,7 +43,7 @@ app.get('/', (req, res) =>{
 
 app.get('/getnextbattle', (req, res) => {
     var nextRound = tournament.getNextRound();
-    res.json({currentRound:nextRound});
+    res.json({currentRound:nextRound, catsJson : catsJson});
 });
 
 app.get('/getrankings', (req, res) => {
