@@ -1,7 +1,7 @@
 function winnerIs(battleId, winnerId, isLast){
     $.ajax({
         type:'POST',
-        url:'http://localhost:9090/thewinneris',
+        url:'/thewinneris',
         data:{battleId: battleId, winnerId:winnerId},
         success:() => {
             $('#div_battles_' + battleId).hide();
@@ -18,7 +18,7 @@ function winnerIs(battleId, winnerId, isLast){
 function getNextBattle(){
     $.ajax({
         type:'GET',
-        url:'http://localhost:9090/getnextbattle',
+        url:'/getnextbattle',
         success:(data) => {
             if (data.currentRound.isFinished){
                 $('#main_div').html('<h1>Le chat le plus mignon est :</h1><br /><img src=' + data.catsJson.images
